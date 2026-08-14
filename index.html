@@ -159,6 +159,25 @@ html,body{max-width:100%;overflow-x:hidden}
   .meetingPicker select{font-size:12px;padding-left:4px;padding-right:4px}
 }
 
+
+/* 手機版：偏移座標操作按鈕維持一般按鈕大小，不撐滿整列 */
+@media(max-width:760px){
+  .copyCard .sectionTitle>.offsetActions{
+    width:auto;
+    flex:0 1 auto;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .copyCard .sectionTitle>.offsetActions .btn{
+    flex:0 0 auto;
+    width:auto;
+    min-width:0;
+    white-space:nowrap;
+    font-size:12px;
+    padding:7px 9px;
+  }
+}
 </style>
 </head>
 <body>
@@ -207,7 +226,7 @@ html,body{max-width:100%;overflow-x:hidden}
       <div class="card span4 copyCard"><div class="sectionTitle"><h3>📣 集合通知</h3><button class="btn secondary" onclick="copyBox('noticeGather')">📋 複製</button></div><textarea id="noticeGather"></textarea></div>
       <div class="card span4 copyCard"><div class="sectionTitle"><h3>📍 發座標通知</h3><button class="btn secondary" onclick="copyBox('noticeCoords')">📋 複製</button></div><textarea id="noticeCoords"></textarea></div>
       <div class="card span4 copyCard"><div class="sectionTitle"><h3>🌱 開花公告</h3><button class="btn secondary" onclick="copyBox('noticeBloom')">📋 複製</button></div><textarea id="noticeBloom"></textarea></div>
-      <div class="card span12 copyCard"><div class="sectionTitle"><div><h3>📍 討論串偏移座標</h3><div class="hint">此區塊獨立複製，適合貼到 LINE 開花公告的討論串內</div></div><div class="toolbar"><button class="btn ghost" onclick="regenerateOffsets()">重新產生偏移座標</button><button class="btn secondary" onclick="copyBox('noticeOffsets')">📋 複製偏移座標</button></div></div><textarea id="noticeOffsets"></textarea></div>
+      <div class="card span12 copyCard"><div class="sectionTitle"><div><h3>📍 討論串偏移座標</h3><div class="hint">此區塊獨立複製，適合貼到 LINE 開花公告的討論串內</div></div><div class="toolbar offsetActions"><button class="btn ghost" onclick="regenerateOffsets()">重新產生偏移座標</button><button class="btn secondary" onclick="copyBox('noticeOffsets')">📋 複製偏移座標</button></div></div><textarea id="noticeOffsets"></textarea></div>
     </div>
   </section>
 
