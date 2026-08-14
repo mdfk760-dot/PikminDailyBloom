@@ -35,7 +35,7 @@ body{margin:0;background:linear-gradient(180deg,#f5f7f1 0,#fafbf8 180px,#f7f8f4 
 label{font-size:13px;font-weight:700;display:block;margin-bottom:6px;color:#49554c}input,textarea,select{width:100%;border:1px solid #d6dfd3;border-radius:10px;padding:10px 11px;background:#fff;color:var(--text);font:inherit;transition:border-color .15s,box-shadow .15s}input:focus,textarea:focus,select:focus{outline:none;border-color:#8fb492;box-shadow:0 0 0 3px rgba(111,157,114,.12)}textarea{resize:vertical;min-height:118px}button{font:inherit}
 .btn{border:1px solid transparent;border-radius:9px;padding:9px 13px;font-weight:800;cursor:pointer;transition:.15s ease}.btn:disabled{opacity:.5;cursor:not-allowed}.btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn.primary:hover{background:var(--primary2)}.btn.secondary{background:#edf6eb;color:#547958;border-color:#dbead7}.btn.secondary:hover{background:#e3f0df}.btn.ghost{background:#f6f8f5;color:#536057;border-color:#e3e8e1}.btn.ghost:hover{background:#edf2eb}.btn.danger{background:#fff3f2;color:var(--danger);border-color:#f2d9d7}
 .row{display:flex;gap:10px;align-items:center}.row>*{flex:1}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.sectionTitle{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:11px}.sectionTitle h2,.sectionTitle h3{margin:0;color:#46654a}.sectionTitle h2{font-size:18px}.sectionTitle h3{font-size:16px}.sectionTitle h2::after,.sectionTitle h3::after{content:"";display:block;width:34px;height:3px;border-radius:3px;background:#d8b75f;margin-top:5px}.hint{font-size:12px;color:var(--muted);line-height:1.55}
-.person{border-top:1px dashed #dfe7dc;padding:13px 0}.person:first-child{border-top:0}.personHead{display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;padding:3px 2px}.personHead:hover b{color:#4f7d55}.personActions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.expandMark{display:inline-block;width:18px;color:#78927b;font-weight:900;transition:transform .15s ease}.person.expanded .expandMark{transform:rotate(90deg)}.personCoords{display:none}.person.expanded .personCoords{display:block}.pill{font-size:12px;border-radius:999px;padding:4px 8px;background:#f0f5ed;color:#607063;border:1px solid #e0e9dd}.coord{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}.coordRow{display:flex;align-items:center;gap:10px;margin-top:7px;padding:8px 10px;background:#fafcf9;border:1px solid #edf1eb;border-radius:8px}.coordRow.done{background:#edf8ef;border-color:#d8ebdc}.coordText{flex:1;min-width:0;word-break:break-all}.coordCheck{display:flex;align-items:center;gap:5px;white-space:nowrap;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer}.coordCheck input{width:18px;height:18px;margin:0;accent-color:var(--ok)}
+.person{border-top:1px dashed #dfe7dc;padding:13px 0}.person:first-child{border-top:0}.personHead{display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;padding:3px 2px}.personHead:hover b{color:#4f7d55}.personActions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.expandMark{display:inline-block;width:18px;color:#78927b;font-weight:900;transition:transform .15s ease}.person.expanded .expandMark{transform:rotate(90deg)}.personCoords{display:none}.person.expanded .personCoords{display:block}.pill{font-size:12px;border-radius:999px;padding:4px 8px;background:#f0f5ed;color:#607063;border:1px solid #e0e9dd}.person.completed .personHead b,.person.completed .expandMark{color:#9aa39c}.person.completed .pill{background:#f2f3f2;color:#9aa39c;border-color:#e5e7e5}.person.completed .coordText,.person.completed .coordCheck{color:#9aa39c}.person.completed .coordRow{background:#f5f6f5;border-color:#e8ebe8}.person.completed .personActions .btn.ghost:disabled{opacity:1;background:#f2f3f2;color:#9aa39c;border-color:#e1e4e1}.coord{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}.coordRow{display:flex;align-items:center;gap:10px;margin-top:7px;padding:8px 10px;background:#fafcf9;border:1px solid #edf1eb;border-radius:8px}.coordRow.done{background:#edf8ef;border-color:#d8ebdc}.coordText{flex:1;min-width:0;word-break:break-all}.coordCheck{display:flex;align-items:center;gap:5px;white-space:nowrap;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer}.coordCheck input{width:18px;height:18px;margin:0;accent-color:var(--ok)}.coordCheck input:disabled{cursor:not-allowed;opacity:.65}.person.completed .coordCheck{cursor:pointer}
 .copyCard textarea{min-height:160px;background:#fbfcfa}.scheduleRow{display:grid;grid-template-columns:160px 1fr 44px;gap:8px;margin:8px 0}.iconbtn{border:1px solid #e3e8e1;border-radius:9px;background:#f6f8f5;color:#6d786f;cursor:pointer}.iconbtn:hover{background:#edf2eb}.notice{padding:10px 12px;border-radius:10px;font-size:13px;margin-bottom:12px}.notice.demo{background:#fff7e7;color:#835d22;border:1px solid #f1dfbb}.notice.live{background:#ecf7ed;color:#426c48;border:1px solid #d8eadb}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.small{font-size:12px}.meetingPicker{display:grid;grid-template-columns:92px 92px 92px;gap:8px}.empty{padding:26px;text-align:center;color:var(--muted)}
 /* LINE 通知卡片做成與既有工具相同的淡色功能區 */
 .copyCard{background:linear-gradient(180deg,#fff 0,#fdfefc 100%)}
@@ -98,12 +98,19 @@ html,body{max-width:100%;overflow-x:hidden}
 
   /* 活動資料與花種排程的日期欄位：避免 iOS/Android 系統日期格式撐破卡片 */
   #date,.scheduleRow input[type="date"]{
-    width:100%;max-width:100%;min-width:0;
-    font-size:16px;
-    padding-left:8px;padding-right:6px;
+    display:block;
+    width:calc(100% - 4px);max-width:calc(100% - 4px);min-width:0;
+    inline-size:calc(100% - 4px);max-inline-size:calc(100% - 4px);min-inline-size:0;
+    margin-right:4px;
+    font-size:15px;
+    padding-left:6px;padding-right:4px;
     overflow:hidden;
+    -webkit-appearance:none;appearance:none;
   }
-  .scheduleRow input[type="date"]{font-size:14px}
+  #date::-webkit-datetime-edit,.scheduleRow input[type="date"]::-webkit-datetime-edit{padding:0;min-width:0}
+  #date::-webkit-date-and-time-value,.scheduleRow input[type="date"]::-webkit-date-and-time-value{min-width:0;width:100%;text-align:left}
+  #date::-webkit-calendar-picker-indicator,.scheduleRow input[type="date"]::-webkit-calendar-picker-indicator{margin:0;padding:0 1px;max-width:18px}
+  .scheduleRow input[type="date"]{font-size:13px}
 
   textarea{width:100%;max-width:100%}
 }
@@ -122,7 +129,23 @@ html,body{max-width:100%;overflow-x:hidden}
   .copyCard .sectionTitle{align-items:center}
   .copyCard .sectionTitle>button{font-size:12px;padding:7px 9px}
   .scheduleRow{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 36px;gap:6px}
-  .scheduleRow input[type="date"]{font-size:13px;padding-left:5px;padding-right:3px}
+  .scheduleRow input[type="date"]{font-size:12px;padding-left:4px;padding-right:2px;width:calc(100% - 6px);max-width:calc(100% - 6px);inline-size:calc(100% - 6px);max-inline-size:calc(100% - 6px);margin-right:6px}#date{width:calc(100% - 6px);max-width:calc(100% - 6px);inline-size:calc(100% - 6px);max-inline-size:calc(100% - 6px);margin-right:6px;font-size:14px}
+}
+
+/* 手機日期欄再縮一層：預留瀏覽器原生日期元件的額外寬度 */
+@media(max-width:430px){
+  #date,.scheduleRow input[type="date"]{
+    width:calc(100% - 12px) !important;
+    max-width:calc(100% - 12px) !important;
+    inline-size:calc(100% - 12px) !important;
+    max-inline-size:calc(100% - 12px) !important;
+    min-width:0 !important;
+    min-inline-size:0 !important;
+    margin-right:12px !important;
+    padding-left:4px !important;
+    padding-right:2px !important;
+  }
+  .scheduleRow{overflow:hidden}
 }
 
 @media(max-width:350px){
@@ -305,11 +328,13 @@ function render(){
   box.className='';
   box.innerHTML=state.participants.map(p=>{
     const mine=state.coords.map((c,idx)=>({c,idx})).filter(x=>x.c.owner===p.name);
+    const openedCount=mine.filter(({c})=>c.status==='已開').length;
+    const completed=p.count>0 && openedCount>=p.count && mine.length>=p.count;
     const lines=mine.map(({c,idx})=>`<div class="coordRow ${c.status==='已開'?'done':''}"><div class="coordText">${pad(idx+1)}　${escapeHtml(c.planned)}</div><label class="coordCheck"><input type="checkbox" ${c.status==='已開'?'checked':''} onchange="toggleCoordStatus(${idx},this.checked)">已開</label></div>`).join('');
     const expanded=expandedPeople.has(p.name);
     const cooldownUntil=allOpenCooldowns.get(p.name)||0;
     const cooling=Date.now()<cooldownUntil;
-    return `<div class="person ${expanded?'expanded':''}"><div class="personHead" onclick='togglePersonExpand(${JSON.stringify(p.name)})'><div><span class="expandMark">▶</span><b>${escapeHtml(p.name)}</b> <span class="pill">${p.count} 株</span></div><div class="personActions" onclick="event.stopPropagation()"><button class="btn secondary small" onclick='copyPerson(${JSON.stringify(p.name)},this)'>📋 複製</button><button class="btn ghost small" ${cooling?'disabled':''} onclick='markPersonAllOpen(${JSON.stringify(p.name)},this)'>${cooling?'冷卻中':'✓ 全開'}</button></div></div><div class="personCoords">${lines||'<div class="hint" style="margin-top:8px">尚未分配到足夠座標</div>'}</div></div>`
+    return `<div class="person ${expanded?'expanded':''} ${completed?'completed':''}"><div class="personHead" onclick='togglePersonExpand(${JSON.stringify(p.name)})'><div><span class="expandMark">▶</span><b>${escapeHtml(p.name)}</b> <span class="pill">${openedCount}/${p.count}株</span></div><div class="personActions" onclick="event.stopPropagation()"><button class="btn secondary small" onclick='copyPerson(${JSON.stringify(p.name)},this)'>📋 複製</button><button class="btn ghost small" ${(cooling||completed)?'disabled':''} onclick='markPersonAllOpen(${JSON.stringify(p.name)},this)'>${completed?'完成':(cooling?'冷卻中':'完成')}</button></div></div><div class="personCoords">${lines||'<div class="hint" style="margin-top:8px">尚未分配到足夠座標</div>'}</div></div>`
   }).join('');refreshNotices();
 }
 function togglePersonExpand(name){
@@ -370,7 +395,7 @@ async function markPersonAllOpen(name,btn){
     }
     if(!x.ok)throw new Error(x.error||'同步失敗');
     if(!x.updated)console.info('此日資料尚未寫入 Google Sheets；狀態會在「資料上傳雲端」時一併保存。');
-  }catch(e){console.error(e);alert('全開狀態同步失敗：'+e.message+'\n目前勾選仍保留在瀏覽器，按「資料上傳雲端」可再寫入。')}
+  }catch(e){console.error(e);alert('完成狀態同步失敗：'+e.message+'\n目前勾選仍保留在瀏覽器，按「資料上傳雲端」可再寫入。')}
 }
 function copyAllAssigned(){const t=state.participants.map(p=>{const mine=state.coords.filter(c=>c.owner===p.name);return `${p.name} +${p.count}\n${mine.map(c=>c.planned).join('\n')}`}).join('\n\n');copyText(t,event.currentTarget)}
 function addScheduleRow(date='',flower=''){const div=document.createElement('div');div.className='scheduleRow';div.innerHTML=`<input type="date" value="${date}"><input value="${escapeHtml(flower)}" placeholder="花種"><button class="iconbtn" title="刪除">×</button>`;div.querySelector('button').onclick=()=>{div.remove();state.schedule=readSchedule();markScheduleDirty();syncFlowersFromSchedule()};div.querySelectorAll('input').forEach(i=>i.addEventListener('input',()=>{state.schedule=readSchedule();markScheduleDirty();syncFlowersFromSchedule()}));$('scheduleList').appendChild(div)}
