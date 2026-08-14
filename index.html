@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>🌼 妖妖_每日強開管理</title>
+<style>
+:root{
+  --bg:#f7f8f4;
+  --card:#ffffff;
+  --text:#2f3832;
+  --muted:#758078;
+  --line:#dfe7dc;
+  --primary:#6f9d72;
+  --primary2:#5f8d63;
+  --primary-soft:#eef6ec;
+  --flower:#e8b85a;
+  --ok:#4f8a5b;
+  --warn:#a86f18;
+  --danger:#c45d58;
+  --shadow:0 4px 14px rgba(67,85,67,.07)
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#f5f7f1 0,#fafbf8 180px,#f7f8f4 100%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif}
+.wrap{max-width:1180px;margin:auto;padding:22px 20px 42px}
+.top{display:flex;gap:14px;align-items:center;justify-content:space-between;margin-bottom:14px;padding:17px 19px;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.title h1{font-size:25px;margin:0 0 4px;color:#476d4c;letter-spacing:.2px}.title h1::before{content:"🌼 ";}.title p{margin:0;color:var(--muted);font-size:13px}
+.status{font-size:12px;padding:7px 11px;border-radius:999px;background:#edf6eb;color:#4f7954;border:1px solid #d8e8d4;font-weight:700;white-space:nowrap}
+.tabs{display:flex;gap:7px;align-items:center;overflow:auto;padding:2px 1px 7px;margin-bottom:13px;scrollbar-width:thin}.tabRightStart{margin-left:auto;white-space:nowrap;flex:0 0 auto}.tabUpload{white-space:nowrap;flex:0 0 auto}.tab{border:1px solid var(--line);background:#fff;padding:9px 14px;border-radius:10px;font-weight:700;cursor:pointer;white-space:nowrap;color:#4d5c50;box-shadow:0 1px 3px rgba(60,80,60,.04);transition:.15s ease}.tab:hover{background:#f3f8f1;border-color:#cbdcc7}.tab.active{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 3px 8px rgba(88,130,91,.18)}
+.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:17px}.card:hover{border-color:#d4e1d1}.inputCard{position:relative}.inputCard .sectionTitle{padding-right:34px}
+.clearX{position:absolute;top:11px;right:11px;width:29px;height:29px;border:1px solid #e7ece5;border-radius:50%;background:#f7f9f6;color:#849087;font-size:19px;line-height:27px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}.clearX:hover{background:#edf3eb;color:#4e6252;border-color:#d6e2d3}.clearX:active{transform:scale(.96)}
+.span12{grid-column:span 12}.span8{grid-column:span 8}.span6{grid-column:span 6}.span4{grid-column:span 4}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:#f2f7ef;border:1px solid #e3eee0;border-radius:11px;padding:13px}.stat b{font-size:23px;display:block;color:#4d7752}.stat span{font-size:12px;color:var(--muted)}
+label{font-size:13px;font-weight:700;display:block;margin-bottom:6px;color:#49554c}input,textarea,select{width:100%;border:1px solid #d6dfd3;border-radius:10px;padding:10px 11px;background:#fff;color:var(--text);font:inherit;transition:border-color .15s,box-shadow .15s}input:focus,textarea:focus,select:focus{outline:none;border-color:#8fb492;box-shadow:0 0 0 3px rgba(111,157,114,.12)}textarea{resize:vertical;min-height:118px}button{font:inherit}
+.btn{border:1px solid transparent;border-radius:9px;padding:9px 13px;font-weight:800;cursor:pointer;transition:.15s ease}.btn:disabled{opacity:.5;cursor:not-allowed}.btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn.primary:hover{background:var(--primary2)}.btn.secondary{background:#edf6eb;color:#547958;border-color:#dbead7}.btn.secondary:hover{background:#e3f0df}.btn.ghost{background:#f6f8f5;color:#536057;border-color:#e3e8e1}.btn.ghost:hover{background:#edf2eb}.btn.danger{background:#fff3f2;color:var(--danger);border-color:#f2d9d7}
+.row{display:flex;gap:10px;align-items:center}.row>*{flex:1}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.sectionTitle{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:11px}.sectionTitle h2,.sectionTitle h3{margin:0;color:#46654a}.sectionTitle h2{font-size:18px}.sectionTitle h3{font-size:16px}.sectionTitle h2::after,.sectionTitle h3::after{content:"";display:block;width:34px;height:3px;border-radius:3px;background:#d8b75f;margin-top:5px}.hint{font-size:12px;color:var(--muted);line-height:1.55}
+.person{border-top:1px dashed #dfe7dc;padding:13px 0}.person:first-child{border-top:0}.personHead{display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;padding:3px 2px}.personHead:hover b{color:#4f7d55}.personActions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.expandMark{display:inline-block;width:18px;color:#78927b;font-weight:900;transition:transform .15s ease}.person.expanded .expandMark{transform:rotate(90deg)}.personCoords{display:none}.person.expanded .personCoords{display:block}.pill{font-size:12px;border-radius:999px;padding:4px 8px;background:#f0f5ed;color:#607063;border:1px solid #e0e9dd}.coord{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}.coordRow{display:flex;align-items:center;gap:10px;margin-top:7px;padding:8px 10px;background:#fafcf9;border:1px solid #edf1eb;border-radius:8px}.coordRow.done{background:#edf8ef;border-color:#d8ebdc}.coordText{flex:1;min-width:0;word-break:break-all}.coordCheck{display:flex;align-items:center;gap:5px;white-space:nowrap;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer}.coordCheck input{width:18px;height:18px;margin:0;accent-color:var(--ok)}
+.copyCard textarea{min-height:160px;background:#fbfcfa}.scheduleRow{display:grid;grid-template-columns:160px 1fr 44px;gap:8px;margin:8px 0}.iconbtn{border:1px solid #e3e8e1;border-radius:9px;background:#f6f8f5;color:#6d786f;cursor:pointer}.iconbtn:hover{background:#edf2eb}.notice{padding:10px 12px;border-radius:10px;font-size:13px;margin-bottom:12px}.notice.demo{background:#fff7e7;color:#835d22;border:1px solid #f1dfbb}.notice.live{background:#ecf7ed;color:#426c48;border:1px solid #d8eadb}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.small{font-size:12px}.meetingPicker{display:grid;grid-template-columns:92px 92px 92px;gap:8px}.empty{padding:26px;text-align:center;color:var(--muted)}
+/* LINE 通知卡片做成與既有工具相同的淡色功能區 */
+.copyCard{background:linear-gradient(180deg,#fff 0,#fdfefc 100%)}
+#today .card:first-child,#line .card:first-child,#schedule .card:first-child{position:relative;overflow:hidden}
+#today .card:first-child::before,#line .card:first-child::before,#schedule .card:first-child::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#8fb692}
+@media(max-width:760px){
+ .wrap{padding:12px 10px 32px}.top{padding:14px 14px;border-radius:13px;align-items:flex-start}.title h1{font-size:21px}.title p{font-size:12px}.status{font-size:11px;padding:6px 9px}.tabs{gap:6px;margin-bottom:10px}.tab{padding:8px 11px;border-radius:9px;font-size:13px}.tabRightStart{margin-left:0}.grid{gap:10px}.card{padding:14px;border-radius:12px}.span8,.span6,.span4{grid-column:span 12}.stats{grid-template-columns:repeat(3,1fr)}.stat{padding:10px 8px}.stat b{font-size:20px}.row{flex-direction:column;align-items:stretch}.meetingPicker{grid-template-columns:repeat(3,1fr)}.scheduleRow{grid-template-columns:120px 1fr 40px}.personHead{align-items:flex-start}.personActions{justify-content:flex-end}.coordRow{align-items:flex-start}.coordCheck{padding-top:1px}
+}
+@media(max-width:430px){.top{gap:8px}.title p{display:none}.status{max-width:120px;overflow:hidden;text-overflow:ellipsis}.stats{gap:6px}.stat span{font-size:11px}.card{padding:12px}.personHead{gap:5px}.personActions .btn{padding:7px 9px}.scheduleRow{grid-template-columns:1fr 1.15fr 38px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div class="title"><h1>妖妖_每日強開管理</h1><p>接龍解析・座標分配・LINE 通知</p></div><div class="status" id="apiStatus">離線模式</div></div>
+  <div id="modeNotice" class="notice demo">已內建 Apps Script EXEC；開啟網頁後會自動嘗試讀取 Google Sheets。</div>
+  <div class="tabs">
+    <button class="tab active" data-tab="today">今日強開</button>
+    <button class="tab" data-tab="line">LINE 通知</button>
+    <button class="tab" data-tab="schedule">花種排程</button>
+    <button class="btn ghost tabRightStart" type="button" onclick="testApi()">測試連線</button>
+    <button id="uploadBtn" class="btn primary tabUpload" onclick="saveAll()">☁️ 資料上傳雲端</button>
+  </div>
+
+  <section id="today" class="panel active">
+    <div class="grid">
+      <div class="card span8">
+        <div class="sectionTitle"><h2>活動資料</h2></div>
+        <div class="row"><div><label>日期</label><input id="date" type="date"></div><div><label>花色</label><input id="color" value="白色"></div><div><label>今日花種</label><input id="todayFlower" readonly placeholder="依花種排程自動帶入"></div><div><label>明日花種</label><input id="tomorrowFlower" readonly placeholder="依花種排程自動帶入"></div></div>
+        <div style="height:10px"></div>
+        <div class="row"><div><label>強開時間</label><div class="meetingPicker"><select id="meetingPeriod" aria-label="上下午"></select><select id="meetingHour" aria-label="小時"></select><select id="meetingMinute" aria-label="分鐘"></select></div></div><div style="flex:3"><label>備註</label><input id="note" placeholder="可留空"></div></div>
+      </div>
+      <div class="card span4"><div class="stats"><div class="stat"><b id="peopleCount">0</b><span>參加人數</span></div><div class="stat"><b id="plantCount">0</b><span>總株數</span></div><div class="stat"><b id="coordCount">0</b><span>座標數</span></div></div></div>
+
+      <div class="card span6 inputCard">
+        <button class="clearX" type="button" title="清空接龍名單" aria-label="清空接龍名單" onclick="clearParticipants()">×</button>
+        <div class="sectionTitle"><div><h3>① 貼上接龍名單</h3><div class="hint">抓每行最後的 +數字，前面全部視為人名</div></div></div>
+        <textarea id="participantInput" placeholder="@妖妖ARmate +2&#10;@妖妖(易移) +2"></textarea>
+      </div>
+
+      <div class="card span6 inputCard">
+        <button class="clearX" type="button" title="清空預計座標" aria-label="清空預計座標" onclick="clearCoords()">×</button>
+        <div class="sectionTitle"><div><h3>② 貼上預計座標</h3><div class="hint">每行只需要一組座標；偏移座標會自動計算，不在分配畫面顯示</div></div></div>
+        <textarea id="coordInput" placeholder="25.040083,121.511955&#10;25.041667,121.519167"></textarea>
+      </div>
+
+      <div class="card span12">
+        <div class="sectionTitle"><div><h3>座標分配結果</h3><div class="hint">依接龍順序自動分配；每個人可一鍵複製自己的座標</div></div><div class="toolbar"><button class="btn secondary" onclick="copyAllAssigned()">📋 複製全部分配</button></div></div>
+        <div id="assignments" class="empty">請先貼上接龍名單與座標。</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="line" class="panel">
+    <div class="grid">
+      <div class="card span4 copyCard"><div class="sectionTitle"><h3>📣 集合通知</h3><button class="btn secondary" onclick="copyBox('noticeGather')">📋 複製</button></div><textarea id="noticeGather"></textarea></div>
+      <div class="card span4 copyCard"><div class="sectionTitle"><h3>📍 發座標通知</h3><button class="btn secondary" onclick="copyBox('noticeCoords')">📋 複製</button></div><textarea id="noticeCoords"></textarea></div>
+      <div class="card span4 copyCard"><div class="sectionTitle"><h3>🌱 開花公告</h3><button class="btn secondary" onclick="copyBox('noticeBloom')">📋 複製</button></div><textarea id="noticeBloom"></textarea></div>
+      <div class="card span12 copyCard"><div class="sectionTitle"><div><h3>📍 討論串偏移座標</h3><div class="hint">此區塊獨立複製，適合貼到 LINE 開花公告的討論串內</div></div><div class="toolbar"><button class="btn ghost" onclick="regenerateOffsets()">重新產生偏移座標</button><button class="btn secondary" onclick="copyBox('noticeOffsets')">📋 複製偏移座標</button></div></div><textarea id="noticeOffsets"></textarea></div>
+    </div>
+  </section>
+
+  <section id="schedule" class="panel">
+    <div class="card"><div class="sectionTitle"><div><h2>花種排程</h2><div class="hint">日期與預計花種，可自由增刪</div></div><div class="toolbar"><button class="btn ghost" onclick="addScheduleRow();markScheduleDirty()">＋新增</button><button class="btn primary" onclick="saveSchedule()">儲存排程</button></div></div><div id="scheduleList"></div></div>
+  </section>
+
+</div>
+<script>
+// ===== 固定設定：若網址有變更，只需要修改這裡 =====
+const APPS_SCRIPT_EXEC='https://script.google.com/macros/s/AKfycbyllbHwkzP8DY49-rNFuhEPK7SkPjz5_umy-EAAlEfm_uey97UT-nUX2dkm3C2iwEOd/exec';
+const CLOUD_COORDS_URL='https://reurl.cc/MW1gmX';
+const state={participants:[],coords:[],schedule:[]};
+const expandedPeople=new Set();
+const allOpenCooldowns=new Map();
+const ALL_OPEN_COOLDOWN_MS=2000;
+let dailyDirty=localStorage.getItem('strongBloomDailyDirty')==='1';
+let scheduleDirty=localStorage.getItem('strongBloomScheduleDirty')==='1';
+let lastSelectedDate='';
+const $=id=>document.getElementById(id);
+function updateDirtyUi(){
+  const btn=$('uploadBtn');
+  if(btn){btn.textContent=dailyDirty?'☁️ 資料上傳雲端 •':'☁️ 資料上傳雲端';btn.title=dailyDirty?'目前有尚未上傳的變更':''}
+}
+function markDailyDirty(){dailyDirty=true;localStorage.setItem('strongBloomDailyDirty','1');updateDirtyUi()}
+function markDailyClean(){dailyDirty=false;localStorage.removeItem('strongBloomDailyDirty');updateDirtyUi()}
+function markScheduleDirty(){scheduleDirty=true;localStorage.setItem('strongBloomScheduleDirty','1')}
+function markScheduleClean(){scheduleDirty=false;localStorage.removeItem('strongBloomScheduleDirty')}
+function hasUnsavedChanges(){return dailyDirty||scheduleDirty}
+window.addEventListener('beforeunload',e=>{if(!hasUnsavedChanges())return;e.preventDefault();e.returnValue=''});
+const pad=n=>String(n).padStart(2,'0');
+function localDate(){const d=new Date();return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`}
+$('date').value=localDate();
+function initMeetingTimes(){
+  const period=$('meetingPeriod'),hour=$('meetingHour'),minute=$('meetingMinute');
+  period.innerHTML='<option value="AM">上午</option><option value="PM">下午</option>';
+  hour.innerHTML='';for(let h=1;h<=12;h++){const o=document.createElement('option');o.value=String(h);o.textContent=`${h} 時`;hour.appendChild(o)}
+  minute.innerHTML='';for(let m=0;m<60;m+=5){const o=document.createElement('option');o.value=String(m);o.textContent=`${pad(m)} 分`;minute.appendChild(o)}
+  setMeetingTime('20:55');
+}
+function getMeetingTime(){let h=Number($('meetingHour').value||12),m=Number($('meetingMinute').value||0),p=$('meetingPeriod').value||'AM';if(p==='AM'){if(h===12)h=0}else if(h!==12)h+=12;return `${pad(h)}:${pad(m)}`}
+function setMeetingTime(value){const m=String(value||'20:55').match(/^(\d{1,2}):(\d{2})$/);let h=m?Number(m[1]):20,min=m?Number(m[2]):55;min=Math.round(min/5)*5;if(min>=60)min=55;const period=h>=12?'PM':'AM';let h12=h%12;if(h12===0)h12=12;$('meetingPeriod').value=period;$('meetingHour').value=String(h12);$('meetingMinute').value=String(min)}
+initMeetingTimes();
+
+const DEMO_PARTICIPANTS=`@妖妖ARmate +2\n@鹿 +2\n@🌸花花小熊掌 +2\n@皮克敏是一款真正休閒的遊戲👼ARmate +8\n@粽 Flashman +2\n@Joanne：別偷我田！ +2\n@球 +6\n@歐累麻麻 +3\n@Cana31 +3\n@LuluHuang +7\n@毛毛●°u°● +3\n@阿貓[EasyGPSMock] +6`;
+$('participantInput').value=DEMO_PARTICIPANTS;
+
+function parseParticipantText(text){
+  return String(text||'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(line=>{const m=line.match(/^(.*?)\s*\+(\d+)\s*$/);return m?{name:m[1].trim(),count:Number(m[2])}:null}).filter(Boolean);
+}
+function previewParticipantStats(){
+  const items=parseParticipantText($('participantInput').value);
+  $('peopleCount').textContent=items.length;
+  $('plantCount').textContent=items.reduce((s,p)=>s+p.count,0);
+}
+function parseParticipants(){
+  const next=parseParticipantText($('participantInput').value);
+  const before=state.participants.map(p=>`${p.name} +${p.count}`).join('\n');
+  const after=next.map(p=>`${p.name} +${p.count}`).join('\n');
+  state.participants=next;
+  if(before!==after)markDailyDirty();
+  assignOwners();render();persistLocal();
+}
+function clearParticipants(){if(!$('participantInput').value.trim()&&!state.participants.length)return;state.participants=[];$('participantInput').value='';markDailyDirty();assignOwners();render();persistLocal()}
+const LAT_M_PER_DEG=111132;
+function makeOffsetCoordinate(coord){
+  const m=String(coord).trim().match(/^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/);if(!m)return '';
+  const lat=Number(m[1]),lon=Number(m[2]);
+  // 與 Suderpanda v6.2「執行隨機座標轉換」相同：0–360° 隨機方向、45–60m 隨機距離。
+  const angle=Math.random()*Math.PI*2;
+  const dist=45+(Math.random()*15);
+  const oLat=(dist*Math.cos(angle))/LAT_M_PER_DEG;
+  const oLon=(dist*Math.sin(angle))/(LAT_M_PER_DEG*Math.cos(lat*Math.PI/180));
+  return `${(lat+oLat).toFixed(6)},${(lon+oLon).toFixed(6)}`;
+}
+function regenerateOffsets(){
+  if(!state.coords.length)return;
+  state.coords=state.coords.map(c=>({...c,offset:makeOffsetCoordinate(c.planned)}));
+  refreshNotices();persistLocal();
+}
+function parseCoordText(text){
+  return String(text||'').split(/\r?\n/).map(line=>line.replace(/["“”]/g,'').trim()).filter(Boolean).map(line=>{
+    const m=line.match(/(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)/);
+    return m?`${m[1]},${m[2]}`:null;
+  }).filter(Boolean);
+}
+function previewCoordStats(){
+  $('coordCount').textContent=parseCoordText($('coordInput').value).length;
+}
+function parseCoords(){
+  const oldByPlanned=new Map(state.coords.map(c=>[c.planned,c]));
+  const plannedList=parseCoordText($('coordInput').value);
+  $('coordInput').value=plannedList.join('\n');
+  const before=state.coords.map(c=>c.planned).join('\n');
+  state.coords=plannedList.map(planned=>{
+    const old=oldByPlanned.get(planned);
+    return old?{...old,planned}:{planned,offset:makeOffsetCoordinate(planned),owner:'',status:'未分配'};
+  });
+  if(before!==plannedList.join('\n'))markDailyDirty();
+  assignOwners();render();persistLocal();
+}
+function clearCoords(){if(!$('coordInput').value.trim()&&!state.coords.length)return;state.coords=[];$('coordInput').value='';markDailyDirty();render();persistLocal()}
+function assignOwners(){
+  const previous=new Map(state.coords.map(c=>[c.planned,{owner:c.owner,status:c.status}]));
+  let i=0;
+  state.coords.forEach(c=>{c.owner='';c.status='未分配'});
+  for(const p of state.participants){
+    for(let n=0;n<p.count&&i<state.coords.length;n++,i++){
+      const c=state.coords[i],old=previous.get(c.planned);
+      c.owner=p.name;
+      c.status=(old&&old.owner===p.name&&old.status==='已開')?'已開':'未開';
+    }
+  }
+}
+function render(){
+  $('peopleCount').textContent=state.participants.length;$('plantCount').textContent=state.participants.reduce((s,p)=>s+p.count,0);$('coordCount').textContent=state.coords.length;
+  const box=$('assignments');if(!state.participants.length){box.className='empty';box.textContent='請先貼上接龍名單。';refreshNotices();return}
+  box.className='';
+  box.innerHTML=state.participants.map(p=>{
+    const mine=state.coords.map((c,idx)=>({c,idx})).filter(x=>x.c.owner===p.name);
+    const lines=mine.map(({c,idx})=>`<div class="coordRow ${c.status==='已開'?'done':''}"><div class="coordText">${pad(idx+1)}　${escapeHtml(c.planned)}</div><label class="coordCheck"><input type="checkbox" ${c.status==='已開'?'checked':''} onchange="toggleCoordStatus(${idx},this.checked)">已開</label></div>`).join('');
+    const expanded=expandedPeople.has(p.name);
+    const cooldownUntil=allOpenCooldowns.get(p.name)||0;
+    const cooling=Date.now()<cooldownUntil;
+    return `<div class="person ${expanded?'expanded':''}"><div class="personHead" onclick='togglePersonExpand(${JSON.stringify(p.name)})'><div><span class="expandMark">▶</span><b>${escapeHtml(p.name)}</b> <span class="pill">${p.count} 株</span></div><div class="personActions" onclick="event.stopPropagation()"><button class="btn secondary small" onclick='copyPerson(${JSON.stringify(p.name)},this)'>📋 複製</button><button class="btn ghost small" ${cooling?'disabled':''} onclick='markPersonAllOpen(${JSON.stringify(p.name)},this)'>${cooling?'冷卻中':'✓ 全開'}</button></div></div><div class="personCoords">${lines||'<div class="hint" style="margin-top:8px">尚未分配到足夠座標</div>'}</div></div>`
+  }).join('');refreshNotices();
+}
+function togglePersonExpand(name){
+  if(expandedPeople.has(name))expandedPeople.delete(name);else expandedPeople.add(name);
+  render();
+}
+async function toggleCoordStatus(index,checked){
+  const c=state.coords[index];if(!c||!c.owner)return;
+  c.status=checked?'已開':'未開';markDailyDirty();persistLocal();render();
+  if(!getExec())return;
+  try{
+    const x=await apiPost({action:'updateCoordStatus',date:$('date').value,index:index+1,status:c.status});
+    if(!x.ok)throw new Error(x.error||'同步失敗');
+    if(!x.updated)console.info('此日資料尚未寫入 Google Sheets；狀態會在「資料上傳雲端」時一併保存。');
+  }catch(e){console.error(e);alert('座標狀態同步失敗：'+e.message+'\n目前勾選仍保留在瀏覽器，按「資料上傳雲端」可再寫入。')}
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function participantLines(){return state.participants.map(p=>`${p.name} +${p.count}`).join('\n')}
+function datePlusDays(dateStr,days){if(!dateStr)return '';const d=new Date(dateStr+'T00:00:00');d.setDate(d.getDate()+days);return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`}
+function syncFlowersFromSchedule(){const date=$('date').value,tomorrowDate=datePlusDays(date,1);const map=new Map(state.schedule.map(x=>[String(x.date||'').slice(0,10),x.flower||'']));$('todayFlower').value=map.get(date)||'';$('tomorrowFlower').value=map.get(tomorrowDate)||'';refreshNotices()}
+function refreshNotices(){
+ const d=$('date').value?new Date($('date').value+'T00:00:00'):new Date(), md=`${d.getMonth()+1}/${d.getDate()}`, color=$('color').value.trim(), flower=$('todayFlower').value.trim(), tomorrow=$('tomorrowFlower').value.trim(), tm=getMeetingTime()||'20:55', people=participantLines(), url=CLOUD_COORDS_URL.trim();
+ $('noticeGather').value=`【${md}${color}${flower}強開】\n請按個表情讓我知道你人在\n${tm}會統一提供座標\n收到座標直接強開後等採果${people?'\n\n'+people:''}`;
+ $('noticeCoords').value=`強開${color}${flower}開完回報等採果\n請至雲端[今日強開座標] 找到自己負責的，開完回報等採果${url?'\n'+url:''}\n\n座標如果已經不是花苗的話先回報`;
+ const offsets=state.coords.map(c=>c.offset).filter(Boolean);
+ $('noticeBloom').value=`🌱｜每日強開團\n🌸｜${color}${flower}\n\n✏️｜隨意收、群內分享勿外流\n🚫｜採果禮儀請遵守：\n1.非開花時間不要來\n2.不要亂踩未開花的地方\n3.不要把分享的位置當自己種花場域\n\n🌟｜特別感謝提供花瓣的各位~${people?'\n'+people:''}${tomorrow?'\n\n明天是['+tomorrow+']，有空的可以到🪖強開🪖接龍統計(右上角≡點下去找聊天室)':''}`;
+ $('noticeOffsets').value=offsets.join('\n');
+}
+async function copyText(text,btn){await navigator.clipboard.writeText(text);if(btn){const old=btn.textContent;btn.textContent='✓ 已複製';setTimeout(()=>btn.textContent=old,1000)}}
+function copyBox(id){copyText($(id).value,event.currentTarget)}
+function copyPerson(name,btn){const mine=state.coords.filter(c=>c.owner===name);const t=mine.map(c=>c.planned).join('\n');copyText(t,btn||event.currentTarget)}
+async function markPersonAllOpen(name,btn){
+  const now=Date.now(),until=allOpenCooldowns.get(name)||0;
+  if(now<until)return;
+  const mine=state.coords.map((c,index)=>({c,index})).filter(x=>x.c.owner===name);
+  if(!mine.length)return;
+  mine.forEach(({c})=>c.status='已開');
+  markDailyDirty();
+  expandedPeople.add(name);
+  allOpenCooldowns.set(name,now+ALL_OPEN_COOLDOWN_MS);
+  persistLocal();render();
+  const target=btn;
+  if(target){target.disabled=true;target.textContent='冷卻中'}
+  setTimeout(()=>{allOpenCooldowns.delete(name);render()},ALL_OPEN_COOLDOWN_MS);
+  if(!getExec())return;
+  try{
+    const items=mine.map(({index})=>({index:index+1,status:'已開'}));
+    let x=await apiPost({action:'updateCoordStatuses',date:$('date').value,items});
+    // 舊版 Apps Script 尚未支援批次 action 時，自動退回逐筆更新，避免全開功能失效。
+    if(!x.ok && String(x.error||'').includes('Unknown action: updateCoordStatuses')){
+      let updated=0;
+      for(const item of items){
+        const one=await apiPost({action:'updateCoordStatus',date:$('date').value,index:item.index,status:item.status});
+        if(!one.ok)throw new Error(one.error||'逐筆同步失敗');
+        if(one.updated)updated++;
+      }
+      x={ok:true,updated,fallback:true};
+    }
+    if(!x.ok)throw new Error(x.error||'同步失敗');
+    if(!x.updated)console.info('此日資料尚未寫入 Google Sheets；狀態會在「資料上傳雲端」時一併保存。');
+  }catch(e){console.error(e);alert('全開狀態同步失敗：'+e.message+'\n目前勾選仍保留在瀏覽器，按「資料上傳雲端」可再寫入。')}
+}
+function copyAllAssigned(){const t=state.participants.map(p=>{const mine=state.coords.filter(c=>c.owner===p.name);return `${p.name} +${p.count}\n${mine.map(c=>c.planned).join('\n')}`}).join('\n\n');copyText(t,event.currentTarget)}
+function addScheduleRow(date='',flower=''){const div=document.createElement('div');div.className='scheduleRow';div.innerHTML=`<input type="date" value="${date}"><input value="${escapeHtml(flower)}" placeholder="花種"><button class="iconbtn" title="刪除">×</button>`;div.querySelector('button').onclick=()=>{div.remove();state.schedule=readSchedule();markScheduleDirty();syncFlowersFromSchedule()};div.querySelectorAll('input').forEach(i=>i.addEventListener('input',()=>{state.schedule=readSchedule();markScheduleDirty();syncFlowersFromSchedule()}));$('scheduleList').appendChild(div)}
+function readSchedule(){return [...$('scheduleList').querySelectorAll('.scheduleRow')].map(r=>({date:r.children[0].value,flower:r.children[1].value.trim()})).filter(x=>x.date||x.flower)}
+function renderSchedule(){ $('scheduleList').innerHTML='';(state.schedule.length?state.schedule:[{date:'',flower:''}]).forEach(x=>addScheduleRow(x.date,x.flower));syncFlowersFromSchedule() }
+function getExec(){return APPS_SCRIPT_EXEC.trim()}
+function updateMode(){const live=!!getExec();$('apiStatus').textContent=live?'Google Sheets 模式':'離線模式';$('modeNotice').className='notice '+(live?'live':'demo');$('modeNotice').textContent=live?'已連接 Apps Script；只有儲存、狀態同步與日期讀取會存取 Google Sheets。':'離線模式：資料只保留在目前瀏覽器。'}
+async function apiGet(params){const u=new URL(getExec());Object.entries(params).forEach(([k,v])=>u.searchParams.set(k,v));const r=await fetch(u);return await r.json()}
+async function apiPost(obj){const r=await fetch(getExec(),{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(obj)});return await r.json()}
+async function testApi(){if(!getExec())return alert('HTML 尚未設定 EXEC');try{const x=await apiGet({action:'ping'});if(x.ok){const v=x.apiVersion?`\nAPI版本：${x.apiVersion}`:'\nAPI版本：舊版／未標示';alert('連線成功'+v+'\n目前使用：'+getExec())}else alert('連線失敗：'+x.error)}catch(e){alert('連線失敗：'+e.message)}}
+let apiLoadSeq=0;
+async function loadApi(requestedDate=$('date').value){
+  if(!getExec())return;
+  const seq=++apiLoadSeq;
+  try{
+    const x=await apiGet({action:'bootstrap',date:requestedDate});
+    if(seq!==apiLoadSeq||$('date').value!==requestedDate)return;
+    if(!x.ok)throw new Error(x.error||'讀取失敗');
+    applyBootstrap(x,requestedDate);
+  }catch(e){
+    if(seq!==apiLoadSeq)return;
+    console.error(e);$('modeNotice').className='notice demo';$('modeNotice').textContent='Google Sheets 讀取失敗，目前保留瀏覽器內資料：'+e.message;
+  }
+}
+function applyBootstrap(x,requestedDate){
+  const a=x.activity||null,s=x.settings||{};
+  // 日期由使用者決定，API 絕不反向覆寫日期欄位。
+  $('date').value=requestedDate;
+  $('color').value=(a&&a['花色'])||s.color||'白色';
+  setMeetingTime((a&&(a['強開時間']||a['集合時間']))||s.meetingTime||'20:55');
+  $('note').value=(a&&a['備註'])||'';
+  state.participants=(x.participants||[]).map(p=>({name:p['人名']||'',count:Number(p['株數'])||0}));
+  state.coords=(x.coords||[]).map(c=>{const planned=String(c['預計座標']||'').replace(/[\"“”]/g,'').trim();return {planned,offset:makeOffsetCoordinate(planned),owner:c['負責人']||'',status:c['狀態']||''}}).filter(c=>c.planned);
+  state.schedule=x.schedule||state.schedule||[];
+  $('participantInput').value=participantLines();
+  $('coordInput').value=state.coords.map(c=>c.planned).join('\n');
+  lastSelectedDate=requestedDate;markDailyClean();renderSchedule();render();persistLocal();
+}
+async function saveAll(){parseParticipants();if(!state.coords.length&&$('coordInput').value.trim())parseCoords();const cloudCoords=state.coords.map(({planned,owner,status})=>({planned,owner,status}));const data={date:$('date').value,color:$('color').value.trim(),todayFlower:$('todayFlower').value.trim(),tomorrowFlower:$('tomorrowFlower').value.trim(),meetingTime:getMeetingTime(),note:$('note').value.trim(),status:'進行中',participants:state.participants,coords:cloudCoords};persistLocal();if(!getExec())return alert('HTML 尚未設定 Apps Script EXEC 網址。');try{const x=await apiPost({action:'saveDay',data});if(!x.ok)throw new Error(x.error);markDailyClean();lastSelectedDate=$('date').value;alert(`已寫入 Google Sheets：${x.savedParticipants} 人、${x.savedCoords} 個座標`)}catch(e){alert('儲存失敗：'+e.message)}}
+async function saveSchedule(){state.schedule=readSchedule();syncFlowersFromSchedule();persistLocal();if(!getExec())return alert('HTML 尚未設定 Apps Script EXEC 網址。');try{const x=await apiPost({action:'saveSchedule',items:state.schedule});if(!x.ok)throw new Error(x.error);markScheduleClean();alert('花種排程已寫入 Google Sheets')}catch(e){alert('儲存失敗：'+e.message)}}
+function persistLocal(){localStorage.setItem('strongBloomLocal',JSON.stringify({participants:state.participants,coords:state.coords,schedule:state.schedule,date:$('date').value,color:$('color').value,todayFlower:$('todayFlower').value,tomorrowFlower:$('tomorrowFlower').value,meetingTime:getMeetingTime(),note:$('note').value}))}
+function loadLocal(){try{const x=JSON.parse(localStorage.getItem('strongBloomLocal')||'null');if(!x)return false;Object.assign(state,{participants:x.participants||[],coords:x.coords||[],schedule:x.schedule||[]});['date','color','note'].forEach(k=>{if(x[k]!==undefined&&$(k))$(k).value=x[k]});if(x.meetingTime!==undefined)setMeetingTime(x.meetingTime);state.coords=state.coords.map(c=>({...c,offset:c.offset||makeOffsetCoordinate(c.planned)}));$('participantInput').value=state.participants.map(p=>`${p.name} +${p.count}`).join('\n');$('coordInput').value=state.coords.map(c=>c.planned).join('\n');syncFlowersFromSchedule();return true}catch{return false}}
+
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');$(b.dataset.tab).classList.add('active');if(b.dataset.tab==='line')refreshNotices()});
+lastSelectedDate=$('date').value;
+$('date').addEventListener('change',()=>{
+  const selected=$('date').value;
+  if(dailyDirty&&selected!==lastSelectedDate&&!confirm('目前有尚未上傳雲端的變更。\n\n切換日期會載入其他日期資料，確定要離開目前內容嗎？')){$('date').value=lastSelectedDate;return}
+  if(selected!==lastSelectedDate)markDailyClean();
+  lastSelectedDate=selected;syncFlowersFromSchedule();persistLocal();if(getExec())loadApi(selected)
+});
+$('participantInput').addEventListener('blur',()=>{parseParticipants();});
+$('coordInput').addEventListener('blur',()=>{parseCoords();});
+
+// 桌機版：左右兩個輸入框高度同步。手機版維持各自獨立。
+(function setupDesktopTextareaSync(){
+  const left=$('participantInput'),right=$('coordInput');
+  if(!left||!right||typeof ResizeObserver==='undefined')return;
+  let syncing=false;
+  const isDesktop=()=>window.matchMedia('(min-width: 761px)').matches;
+  const syncFrom=(source,target)=>{
+    if(!isDesktop()||syncing)return;
+    const h=Math.round(source.getBoundingClientRect().height);
+    const th=Math.round(target.getBoundingClientRect().height);
+    if(Math.abs(h-th)<2)return;
+    syncing=true;
+    target.style.height=h+'px';
+    requestAnimationFrame(()=>{syncing=false});
+  };
+  const roLeft=new ResizeObserver(()=>syncFrom(left,right));
+  const roRight=new ResizeObserver(()=>syncFrom(right,left));
+  roLeft.observe(left);
+  roRight.observe(right);
+
+  const applyMode=()=>{
+    if(isDesktop()){
+      const h=Math.max(left.getBoundingClientRect().height,right.getBoundingClientRect().height);
+      syncing=true;
+      left.style.height=h+'px';
+      right.style.height=h+'px';
+      requestAnimationFrame(()=>{syncing=false});
+    }else{
+      // 手機版取消同步高度，避免其中一個文字框過高。
+      syncing=true;
+      left.style.height='';
+      right.style.height='';
+      requestAnimationFrame(()=>{syncing=false});
+    }
+  };
+  window.addEventListener('resize',applyMode,{passive:true});
+  applyMode();
+})();
+$('color').addEventListener('input',()=>{markDailyDirty();refreshNotices();persistLocal()});
+$('note').addEventListener('input',()=>{markDailyDirty();persistLocal()});
+['meetingPeriod','meetingHour','meetingMinute'].forEach(id=>$(id).addEventListener('change',()=>{markDailyDirty();refreshNotices();persistLocal()}));
+updateMode();const hadLocal=loadLocal();if(!hadLocal)parseParticipants();renderSchedule();render();updateDirtyUi();lastSelectedDate=$('date').value;loadApi($('date').value);
+</script>
+</body>
+</html>
