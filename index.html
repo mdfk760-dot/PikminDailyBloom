@@ -46,6 +46,12 @@ label{font-size:13px;font-weight:700;display:block;margin-bottom:6px;color:#4955
 }
 @media(max-width:430px){.top{gap:8px}.title p{display:none}.status{max-width:120px;overflow:hidden;text-overflow:ellipsis}.stats{gap:6px}.stat span{font-size:11px}.card{padding:12px}.personHead{gap:5px}.personActions .btn{padding:7px 9px}.scheduleRow{grid-template-columns:1fr 1.15fr 38px}}
 
+
+/* 手機瀏覽器 date input 具有系統最小寬度，需額外限制 */
+input[type="date"]{width:100%;max-width:100%;min-width:0;box-sizing:border-box}
+input[type="date"]::-webkit-date-and-time-value{min-width:0;text-align:left}
+input[type="date"]::-webkit-calendar-picker-indicator{margin:0;padding:0;flex:0 0 auto}
+
 /* ===== 手機版防溢出修正 ===== */
 html,body{max-width:100%;overflow-x:hidden}
 .grid>*{min-width:0}
@@ -90,6 +96,15 @@ html,body{max-width:100%;overflow-x:hidden}
   .scheduleRow>*{min-width:0}
   .scheduleRow input{padding-left:8px;padding-right:8px}
 
+  /* 活動資料與花種排程的日期欄位：避免 iOS/Android 系統日期格式撐破卡片 */
+  #date,.scheduleRow input[type="date"]{
+    width:100%;max-width:100%;min-width:0;
+    font-size:16px;
+    padding-left:8px;padding-right:6px;
+    overflow:hidden;
+  }
+  .scheduleRow input[type="date"]{font-size:14px}
+
   textarea{width:100%;max-width:100%}
 }
 
@@ -107,6 +122,7 @@ html,body{max-width:100%;overflow-x:hidden}
   .copyCard .sectionTitle{align-items:center}
   .copyCard .sectionTitle>button{font-size:12px;padding:7px 9px}
   .scheduleRow{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 36px;gap:6px}
+  .scheduleRow input[type="date"]{font-size:13px;padding-left:5px;padding-right:3px}
 }
 
 @media(max-width:350px){
