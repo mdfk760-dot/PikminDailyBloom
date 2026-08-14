@@ -178,6 +178,26 @@ html,body{max-width:100%;overflow-x:hidden}
     padding:7px 9px;
   }
 }
+
+/* ===== 2026-08-15：偏移複製位置與手機日期寬度修正 ===== */
+.offsetCard>.hint{margin:-4px 0 10px}
+.offsetCard .offsetActions{margin-bottom:10px}
+@media(max-width:760px){
+  /* 日期欄與其他輸入框等寬；用 box-sizing/min-width 防止 iOS 原生 date 撐出容器 */
+  #date,.scheduleRow input[type="date"]{
+    display:block!important;
+    width:100%!important;max-width:100%!important;min-width:0!important;
+    inline-size:100%!important;max-inline-size:100%!important;min-inline-size:0!important;
+    margin:0!important;box-sizing:border-box!important;
+    overflow:hidden;
+    padding-left:10px;padding-right:8px;
+  }
+  #date::-webkit-datetime-edit,.scheduleRow input[type="date"]::-webkit-datetime-edit{min-width:0;padding:0}
+  #date::-webkit-date-and-time-value,.scheduleRow input[type="date"]::-webkit-date-and-time-value{min-width:0;width:100%;text-align:left}
+  .offsetCard .sectionTitle{align-items:center}
+  .offsetCard .sectionTitle .btn{flex:0 0 auto;width:auto}
+  .offsetCard .offsetActions{justify-content:flex-start}
+}
 </style>
 </head>
 <body>
@@ -226,7 +246,7 @@ html,body{max-width:100%;overflow-x:hidden}
       <div class="card span4 copyCard"><div class="sectionTitle"><h3>📣 集合通知</h3><button class="btn secondary" onclick="copyBox('noticeGather')">📋 複製</button></div><textarea id="noticeGather"></textarea></div>
       <div class="card span4 copyCard"><div class="sectionTitle"><h3>📍 發座標通知</h3><button class="btn secondary" onclick="copyBox('noticeCoords')">📋 複製</button></div><textarea id="noticeCoords"></textarea></div>
       <div class="card span4 copyCard"><div class="sectionTitle"><h3>🌱 開花公告</h3><button class="btn secondary" onclick="copyBox('noticeBloom')">📋 複製</button></div><textarea id="noticeBloom"></textarea></div>
-      <div class="card span12 copyCard"><div class="sectionTitle"><div><h3>📍 討論串偏移座標</h3><div class="hint">此區塊獨立複製，適合貼到 LINE 開花公告的討論串內</div></div><div class="toolbar offsetActions"><button class="btn ghost" onclick="regenerateOffsets()">重新產生偏移座標</button><button class="btn secondary" onclick="copyBox('noticeOffsets')">📋 複製偏移座標</button></div></div><textarea id="noticeOffsets"></textarea></div>
+      <div class="card span12 copyCard offsetCard"><div class="sectionTitle"><h3>📍 討論串偏移座標</h3><button class="btn secondary" onclick="copyBox('noticeOffsets')">📋 複製</button></div><div class="hint">此區塊獨立複製，適合貼到 LINE 開花公告的討論串內</div><div class="toolbar offsetActions"><button class="btn ghost" onclick="regenerateOffsets()">重新產生偏移座標</button></div><textarea id="noticeOffsets"></textarea></div>
     </div>
   </section>
 
