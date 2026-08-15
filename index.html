@@ -198,6 +198,20 @@ html,body{max-width:100%;overflow-x:hidden}
   .offsetCard .sectionTitle .btn{flex:0 0 auto;width:auto}
   .offsetCard .offsetActions{justify-content:flex-start}
 }
+
+/* 桌機版活動資料第二列：避免強開時間與備註重疊 */
+@media(min-width:761px){
+  .activityBottomRow{
+    display:grid;
+    grid-template-columns:292px minmax(0,1fr);
+    gap:10px;
+    align-items:end;
+  }
+  .activityBottomRow>*{min-width:0;width:100%}
+  .activityBottomRow .meetingPicker{width:100%;grid-template-columns:92px 92px 92px}
+  .activityBottomRow #note{width:100%;min-width:0}
+}
+
 </style>
 </head>
 <body>
@@ -218,7 +232,7 @@ html,body{max-width:100%;overflow-x:hidden}
         <div class="sectionTitle"><h2>活動資料</h2></div>
         <div class="row"><div><label>日期</label><input id="date" type="date"></div><div><label>花色</label><input id="color" value="白色"></div><div><label>今日花種</label><input id="todayFlower" readonly placeholder="依花種排程自動帶入"></div><div><label>明日花種</label><input id="tomorrowFlower" readonly placeholder="依花種排程自動帶入"></div></div>
         <div style="height:10px"></div>
-        <div class="row"><div><label>強開時間</label><div class="meetingPicker"><select id="meetingPeriod" aria-label="上下午"></select><select id="meetingHour" aria-label="小時"></select><select id="meetingMinute" aria-label="分鐘"></select></div></div><div style="flex:3"><label>備註</label><input id="note" placeholder="可留空"></div></div>
+        <div class="row activityBottomRow"><div><label>強開時間</label><div class="meetingPicker"><select id="meetingPeriod" aria-label="上下午"></select><select id="meetingHour" aria-label="小時"></select><select id="meetingMinute" aria-label="分鐘"></select></div></div><div style="flex:3"><label>備註</label><input id="note" placeholder="可留空"></div></div>
       </div>
       <div class="card span4"><div class="stats"><div class="stat"><b id="peopleCount">0</b><span>參加人數</span></div><div class="stat"><b id="plantCount">0</b><span>總株數</span></div><div class="stat"><b id="coordCount">0</b><span>座標數</span></div></div></div>
 
@@ -251,7 +265,7 @@ html,body{max-width:100%;overflow-x:hidden}
   </section>
 
   <section id="schedule" class="panel">
-    <div class="card"><div class="sectionTitle"><div><h2>花種排程</h2><div class="hint">日期與預計花種，可自由增刪</div></div><div class="toolbar"><button class="btn ghost" onclick="addScheduleRow();markScheduleDirty()">＋新增</button><button class="btn primary" onclick="saveSchedule()">儲存排程</button></div></div><div id="scheduleList"></div></div>
+    <div class="card"><div class="sectionTitle"><div><h2>花種排程</h2><div class="hint">日期與預計花種，可自由增刪</div></div><div class="toolbar"><button class="btn ghost" onclick="addScheduleRow();markScheduleDirty()">＋新增</button></div></div><div id="scheduleList"></div></div>
   </section>
 
 </div>
@@ -269,14 +283,16 @@ let lastSelectedDate='';
 const $=id=>document.getElementById(id);
 function updateDirtyUi(){
   const btn=$('uploadBtn');
-  if(btn){btn.textContent=dailyDirty?'☁️ 資料上傳雲端 •':'☁️ 資料上傳雲端';btn.title=dailyDirty?'目前有尚未上傳的變更':''}
+  const dirty=dailyDirty||scheduleDirty;
+  if(btn){btn.textContent=dirty?'☁️ 資料上傳雲端 •':'☁️ 資料上傳雲端';btn.title=dirty?'目前有尚未上傳的變更':''}
 }
 function markDailyDirty(){dailyDirty=true;localStorage.setItem('strongBloomDailyDirty','1');updateDirtyUi()}
 function markDailyClean(){dailyDirty=false;localStorage.removeItem('strongBloomDailyDirty');updateDirtyUi()}
-function markScheduleDirty(){scheduleDirty=true;localStorage.setItem('strongBloomScheduleDirty','1')}
-function markScheduleClean(){scheduleDirty=false;localStorage.removeItem('strongBloomScheduleDirty')}
+function markScheduleDirty(){scheduleDirty=true;localStorage.setItem('strongBloomScheduleDirty','1');updateDirtyUi()}
+function markScheduleClean(){scheduleDirty=false;localStorage.removeItem('strongBloomScheduleDirty');updateDirtyUi()}
 function hasUnsavedChanges(){return dailyDirty||scheduleDirty}
 window.addEventListener('beforeunload',e=>{if(!hasUnsavedChanges())return;e.preventDefault();e.returnValue=''});
+updateDirtyUi();
 const pad=n=>String(n).padStart(2,'0');
 function localDate(){const d=new Date();return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`}
 $('date').value=localDate();
@@ -398,7 +414,7 @@ function refreshNotices(){
  const d=$('date').value?new Date($('date').value+'T00:00:00'):new Date(), md=`${d.getMonth()+1}/${d.getDate()}`, color=$('color').value.trim(), flower=$('todayFlower').value.trim(), tomorrow=$('tomorrowFlower').value.trim(), tm=getMeetingTime()||'20:55', people=participantLines(), url=CLOUD_COORDS_URL.trim();
  $('noticeGather').value=`【${md}${color}${flower}強開】\n請按個表情讓我知道你人在\n${tm}會統一提供座標\n收到座標直接強開後等採果${people?'\n\n'+people:''}`;
  $('noticeCoords').value=`強開${color}${flower}開完回報等採果\n請至雲端[今日強開座標] 找到自己負責的，開完回報等採果${url?'\n'+url:''}\n\n座標如果已經不是花苗的話先回報`;
- const offsets=state.coords.map(c=>c.offset).filter(Boolean);
+ const offsets=state.coords.filter(c=>c.owner).map(c=>c.offset).filter(Boolean);
  $('noticeBloom').value=`🌱｜每日強開團\n🌸｜${color}${flower}\n\n✏️｜隨意收、群內分享勿外流\n🚫｜採果禮儀請遵守：\n1.非開花時間不要來\n2.不要亂踩未開花的地方\n3.不要把分享的位置當自己種花場域\n\n🌟｜特別感謝提供花瓣的各位~${people?'\n'+people:''}${tomorrow?'\n\n明天是['+tomorrow+']，有空的可以到🪖強開🪖接龍統計(右上角≡點下去找聊天室)':''}`;
  $('noticeOffsets').value=offsets.join('\n');
 }
@@ -473,8 +489,48 @@ function applyBootstrap(x,requestedDate){
   $('coordInput').value=state.coords.map(c=>c.planned).join('\n');
   lastSelectedDate=requestedDate;markDailyClean();renderSchedule();render();persistLocal();
 }
-async function saveAll(){parseParticipants();if(!state.coords.length&&$('coordInput').value.trim())parseCoords();const cloudCoords=state.coords.map(({planned,owner,status})=>({planned,owner,status}));const data={date:$('date').value,color:$('color').value.trim(),todayFlower:$('todayFlower').value.trim(),tomorrowFlower:$('tomorrowFlower').value.trim(),meetingTime:getMeetingTime(),note:$('note').value.trim(),status:'進行中',participants:state.participants,coords:cloudCoords};persistLocal();if(!getExec())return alert('HTML 尚未設定 Apps Script EXEC 網址。');try{const x=await apiPost({action:'saveDay',data});if(!x.ok)throw new Error(x.error);markDailyClean();lastSelectedDate=$('date').value;alert(`已寫入 Google Sheets：${x.savedParticipants} 人、${x.savedCoords} 個座標`)}catch(e){alert('儲存失敗：'+e.message)}}
-async function saveSchedule(){state.schedule=readSchedule();syncFlowersFromSchedule();persistLocal();if(!getExec())return alert('HTML 尚未設定 Apps Script EXEC 網址。');try{const x=await apiPost({action:'saveSchedule',items:state.schedule});if(!x.ok)throw new Error(x.error);markScheduleClean();alert('花種排程已寫入 Google Sheets')}catch(e){alert('儲存失敗：'+e.message)}}
+async function saveAll(){
+  parseParticipants();
+  if(!state.coords.length&&$('coordInput').value.trim())parseCoords();
+  state.schedule=readSchedule();
+  syncFlowersFromSchedule();
+  const cloudCoords=state.coords.map(({planned,owner,status})=>({planned,owner,status}));
+  const data={date:$('date').value,color:$('color').value.trim(),todayFlower:$('todayFlower').value.trim(),tomorrowFlower:$('tomorrowFlower').value.trim(),meetingTime:getMeetingTime(),note:$('note').value.trim(),status:'進行中',participants:state.participants,coords:cloudCoords};
+  persistLocal();
+  if(!getExec())return alert('HTML 尚未設定 Apps Script EXEC 網址。');
+
+  const [dayResult,scheduleResult]=await Promise.allSettled([
+    apiPost({action:'saveDay',data}),
+    apiPost({action:'saveSchedule',items:state.schedule})
+  ]);
+
+  const errors=[];
+  let dayInfo=null,scheduleInfo=null;
+
+  if(dayResult.status==='fulfilled'&&dayResult.value&&dayResult.value.ok){
+    dayInfo=dayResult.value;
+    markDailyClean();
+    lastSelectedDate=$('date').value;
+  }else{
+    const reason=dayResult.status==='rejected'?dayResult.reason?.message:(dayResult.value?.error||'未知錯誤');
+    errors.push('今日資料：'+reason);
+  }
+
+  if(scheduleResult.status==='fulfilled'&&scheduleResult.value&&scheduleResult.value.ok){
+    scheduleInfo=scheduleResult.value;
+    markScheduleClean();
+  }else{
+    const reason=scheduleResult.status==='rejected'?scheduleResult.reason?.message:(scheduleResult.value?.error||'未知錯誤');
+    errors.push('花種排程：'+reason);
+  }
+
+  if(errors.length){
+    alert('部分資料上傳失敗：\n'+errors.join('\n')+'\n\n已成功的項目不需要重複處理。');
+    return;
+  }
+
+  alert(`資料已上傳 Google Sheets：${dayInfo.savedParticipants} 人、${dayInfo.savedCoords} 個座標，花種排程 ${scheduleInfo.saved??state.schedule.length} 筆`);
+}
 function persistLocal(){localStorage.setItem('strongBloomLocal',JSON.stringify({participants:state.participants,coords:state.coords,schedule:state.schedule,date:$('date').value,color:$('color').value,todayFlower:$('todayFlower').value,tomorrowFlower:$('tomorrowFlower').value,meetingTime:getMeetingTime(),note:$('note').value}))}
 function loadLocal(){try{const x=JSON.parse(localStorage.getItem('strongBloomLocal')||'null');if(!x)return false;Object.assign(state,{participants:x.participants||[],coords:x.coords||[],schedule:x.schedule||[]});['date','color','note'].forEach(k=>{if(x[k]!==undefined&&$(k))$(k).value=x[k]});if(x.meetingTime!==undefined)setMeetingTime(x.meetingTime);state.coords=state.coords.map(c=>({...c,offset:c.offset||makeOffsetCoordinate(c.planned)}));$('participantInput').value=state.participants.map(p=>`${p.name} +${p.count}`).join('\n');$('coordInput').value=state.coords.map(c=>c.planned).join('\n');syncFlowersFromSchedule();return true}catch{return false}}
 
